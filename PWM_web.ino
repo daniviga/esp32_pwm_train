@@ -103,6 +103,15 @@ void setup(){
     request->send(400, "text/plan", "Bad request");
   });
 
+  server.on("/emergency", HTTP_GET, [] (AsyncWebServerRequest *request) {
+    ledcWrite(pwm_channel, 0);
+    // Put breakes on to stop the motor
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, HIGH);
+    Serial.println("! Emergency stop");
+    request->send(200, "text/plain", "OK");
+  });
+
   server.on("/command", HTTP_GET, [] (AsyncWebServerRequest *request) {
     if (request->hasParam(pwm_parameter) && request->hasParam(dir_parameter)) {
       pwm_value = request->getParam(pwm_parameter)->value();

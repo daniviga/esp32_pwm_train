@@ -58,7 +58,7 @@ function updateSliderPWM() {
 function emergency() {
   console.log("Emergency stop!");
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/command?pwm=0&direction=0", true);
+  xhr.open("GET", "/emergency", true);
   xhr.send();
   document.getElementById("dirSlider").value = 0;
   document.getElementById("pwmSlider").value = 0;
